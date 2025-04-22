@@ -3,6 +3,11 @@ from .models import Transaction, Status, TransactionType, Category, SubCategory
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    status = serializers.StringRelatedField()
+    transaction_type = serializers.StringRelatedField()
+    category = serializers.StringRelatedField()
+    subcategory = serializers.StringRelatedField()
+
     class Meta:
         model = Transaction
         fields = '__all__'
@@ -23,6 +28,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SubCategorySerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
     class Meta:
         model = SubCategory
         fields = '__all__'

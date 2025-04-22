@@ -4,7 +4,7 @@ from django.db import models
 class Status(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name="Статус")
 
-    def str(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -15,7 +15,7 @@ class Status(models.Model):
 class TransactionType(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name="Тип операции")
 
-    def str(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -26,7 +26,7 @@ class TransactionType(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Категория")
 
-    def str(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -38,8 +38,8 @@ class SubCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Подкатегория")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="subcategories", verbose_name="Категория")
 
-    def str(self):
-        return f"{self.category.name} → {self.name}"
+    def __str__(self):
+        return self.name
 
     class Meta:
         unique_together = ("name", "category")
