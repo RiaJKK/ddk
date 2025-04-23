@@ -5,8 +5,7 @@ from .serializers import (TransactionSerializer, StatusSerializer, TransactionTy
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Transaction
-from .serializers import TransactionSerializer
+
 
 class TransactionListView(APIView):
     def get(self, request):

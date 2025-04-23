@@ -10,8 +10,6 @@ router.register(r'transactiontypes', TransactionTypeViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'subcategories', SubCategoryViewSet)
 
-
-
 urlpatterns = [
     path('', include(router.urls)),
 ]

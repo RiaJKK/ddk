@@ -23,6 +23,7 @@ class TransactionType(models.Model):
         verbose_name_plural = "Типы операций"
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Категория")
 
@@ -46,14 +47,24 @@ class SubCategory(models.Model):
         verbose_name = "Подкатегория"
         verbose_name_plural = "Подкатегории"
 
+class CategoryTransactionType(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Категория")
+    transaction_type = models.ForeignKey(TransactionType, on_delete=models.CASCADE, verbose_name="Тип операции")
+
+    def __str__(self):
+        return f"{self.category.name} - {self.transaction_type.name}"
+
+    class Meta:
+        verbose_name = "Связь категории и типа операции"
+        verbose_name_plural = "Связи категорий и типов операций"
 
 class Transaction(models.Model):
-    created_at = models.DateField(auto_now_add=False, verbose_name="Дата создания")
-    status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Статус")
-    transaction_type = models.ForeignKey(TransactionType, on_delete=models.SET_NULL, null=True, verbose_name="Тип")
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name="Категория")
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Подкатегория")
-    amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Сумма")
+    created_at = models.DateField(auto_now_add=False, verbose_name="Дата создания", blank=False)
+    status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Статус", blank=False)
+    transaction_type = models.ForeignKey(TransactionType, on_delete=models.SET_NULL, null=True, verbose_name="Тип", blank=False)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name="Категория", blank=False)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, null=True, blank=False, verbose_name="Подкатегория")
+    amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Сумма", blank=False)
     comment = models.TextField(blank=True, null=True, verbose_name="Комментарий")
 
     def str(self):
